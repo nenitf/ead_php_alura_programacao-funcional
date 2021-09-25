@@ -9,4 +9,4 @@ services:
     ports:
       - '8989:80'
     #command: tail -F anything
-    command: php -S 0.0.0.0:80
+    command: php -S 0.0.0.0:80 -t public
