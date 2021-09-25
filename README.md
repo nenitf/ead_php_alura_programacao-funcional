@@ -30,6 +30,9 @@ docker-compose up
 
 ## Anotações
 
-- Anotações são do tipo `callable`
+- Funções são do tipo `callable` (quando usadas como parâmetro de outras funções são chamadas de **callback**)
 - Closure (no PHP é uma classe que é instanciada a cada função anônima) é uma função que tem acesso ao **escopo externo** (no PHP precisar usar `use ($varExterna1, $varExterna2)`)
     > O termo "bonitinho" é escopo léxico. Uma closure, quando falamos de programação funcional, possui escopo léxico, ou seja, tem acesso ao escopo de onde ela foi definida.
+- Paradigma **funcional** é declarativo (programa **o que** deve ser feito) e o **procedural** é imperativo (programa **como** deve ser feito)
+- É muito importante saber utilizar as funções corretas para tornar o código mais "semântico". Quer mapear um array? `map`. Reduzir? `reduce`. Filtrar? `filter` e etc, evite gambiarra, favoreça a legibilidade futura do algoritmo.
+    > Evite pregar parafuso
