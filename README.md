@@ -17,7 +17,7 @@ docker-compose exec app composer install
 
 ## Execução
 
-- Caso recém tenha feito a **configuração inicial** e o ambiente continue rodando, tudo certo. Pode acessar ``localhost:8989/<script-name.php>``
+- Caso recém tenha feito a **configuração inicial** e o ambiente continue rodando, tudo certo. Pode acessar ``localhost:8989/arquivo-script.php``
 - Do contrário, suba o ambiente novamente:
 ```sh
 docker-compose up
