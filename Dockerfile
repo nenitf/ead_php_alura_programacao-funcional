@@ -1,0 +1,23 @@
+FROM php:7.4-cli
+
+WORKDIR /app
+
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+#RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+
+#RUN apt-get update; \
+#    apt-get install -y libpq5 libpq-dev libzip-dev zip; \
+#    pecl install xdebug; \
+#    docker-php-ext-install pdo pdo_pgsql zip; \
+#    docker-php-ext-enable xdebug; \
+#    echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/xdebug.ini; \
+#    apt-get autoremove --purge -y libpq-dev; \
+#    apt-get clean ; \
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# outras opções
+#docker run -itv $(pwd):/app -w /app -p 8181:8080 php7.4 -S 0.0.0.0:8080 -t public
+#docker run --rm -itv $(pwd):/app -w /app -u $(id -u):$(id -g) composer {comando}
+#docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.4-cli php your-script.php
