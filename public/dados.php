@@ -1,6 +1,8 @@
 <?php
 
-return [
+use Alura\Fp\Maybe;
+
+return Maybe::of([
     [
         "pais" => "Brasil",
         "medalhas" => [
@@ -26,11 +28,11 @@ return [
         ]
     ],
     [
-    "pais" => "Costa rica",
-    "medalhas" => [
-        "ouro" => 5,
-        "prata" => 4,
-        "bronze" => 4
-    ]
-],
-];
+        "pais" => "Costa rica",
+        "medalhas" => [
+            "ouro" => 5,
+            "prata" => 4,
+            "bronze" => 4
+        ]
+    ],
+]);

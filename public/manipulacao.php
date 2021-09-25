@@ -1,10 +1,13 @@
 <?php
 
+use Alura\Fp\Maybe;
+
 require_once 'vendor/autoload.php';
 
+/** @var Maybe $dados */
 $dados = require 'dados.php';
 
-$contador = count($dados);
+$contador = count($dados->getOrElse([]));
 echo "Número de países: $contador\n";
 
 $somaMedalhas = fn (int $medalhasAcumuladas, int $medalhas) => $medalhasAcumuladas + $medalhas;
@@ -19,8 +22,8 @@ $verificaSePaisTemEspacoNoNome = fn (array $pais): bool => strpos($pais['pais'],
 $comparaMedalhas = fn (array $medalhasPais1, array $medalhasPais2): callable
     => fn (string $modalidade): int => $medalhasPais2[$modalidade] <=> $medalhasPais1[$modalidade];
 
-$nomesDePaisesEmMaisuculo = fn ($dados) => array_map('convertePaisParaLetraMaisucula', $dados);
-$filtraPaisesSemEspacoNoNome = fn ($dados) => array_filter($dados, $verificaSePaisTemEspacoNoNome);
+$nomesDePaisesEmMaisuculo = fn (Maybe $dados) => Maybe::of(array_map('convertePaisParaLetraMaisucula', $dados->getOrElse([])));
+$filtraPaisesSemEspacoNoNome = fn (Maybe $dados) => Maybe::of(array_filter($dados->getOrElse([]), $verificaSePaisTemEspacoNoNome));
 
 $funcoes = \igorw\pipeline(
     $nomesDePaisesEmMaisuculo,
@@ -28,6 +31,9 @@ $funcoes = \igorw\pipeline(
 );
 $dados = $funcoes($dados);
 
+var_dump($dados->getOrElse([]));
+
+exit();
 $medalhas = array_reduce(
     array_map(
         fn (array $medalhas): int => array_reduce($medalhas, $somaMedalhas, 0),

@@ -88,3 +88,7 @@ docker-compose up
     );
     $operacoes($dados);
     ```
+- **Functors** é o tipo de dado que pode ser realizado um `map`. Em linguagens funcionais são dados que podem ser usados com `map` e linguagens *oo* são classes que possuam o método `map`
+- **Mônada** tipo de dado que encapsula outro tipo
+    - Importante em composição de funções para evitar *ifs* pouco legíveis. Esses *ifs* servem para dar continuidade na composição
+    - As mais comuns são *Maybe* e *Optional*
