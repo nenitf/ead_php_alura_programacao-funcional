@@ -8,12 +8,12 @@ docker-compose up -d
 ```
 > Caso queira, ao final da configuração, pare o Docker com ``docker-compose down``
 
-<!--
 2. Baixe as dependências do composer
 ```sh
 docker-compose exec app composer install
 ```
--->
+
+> Para criar autoload sem instalar as dependências ``docker-compose exec app composer du``
 
 ## Execução
 
