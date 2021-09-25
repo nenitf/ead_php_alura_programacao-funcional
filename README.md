@@ -2,6 +2,8 @@
 
 > Projeto referente a [este](https://cursos.alura.com.br/course/php-programacao-funcional) curso.
 
+> [Repo de conhecimento](https://github.com/marcelgsantos/getting-started-with-fp-in-php) sobre fp em PHP
+
 1. Crie o ambiente
 ```sh
 docker-compose up -d
@@ -52,3 +54,37 @@ docker-compose up
 - **High Order Function** (HOF) é uma função que opera sobre outras funções, ou seja, função que recebe outras por parâmetro, ou que retorna uma nova função
 - **Currying** é o processo de "segmentar"/"preparar" a execução de uma função. Suas funções "filhas" são chamadas de **curried functions**
     - Técnica **partial application**: currying feito com uma função que possui múltiplos parâmetros por outras com quantidade menor (simplificando, pois um dos parametros foi "fixado"). Quando faz sentido usar? Quando o mesmo parâmetro é usado várias vezes em uma chamada de função.
+- Composição de funções serve para facilitar a leitura de chamada de funções (ao invés de por uma dentro da outra por parâmetro). **Pipe** é esquerda -> direita, cima -> baixo. **Compose** é direita -> esquerda, baixo -> cima
+    ```php
+    <?php
+
+    // ...
+
+    $nomeDePaisesEmMaiusculo = fn($dados) => array_map('convertePaisParaLetraMaisucula', $dados);
+    $filtraPaisesSemEspacoNoNome = array_filter($dados, $verificaSePaisTemEspacoNoNome);
+
+    // ruim
+    $dados = $nomeDePaisesEmMaiusculo($dados);
+    $dados = $filtraPaisesSemEspacoNoNome($dados);
+
+    // pior ainda (leitura de dentro para fora)
+    $dados = $filtraPaisesSemEspacoNoNome($nomeDePaisesEmMaiusculo($dados));
+
+
+    // solução sem lib de pipe:
+    function pipe(callable ...$funcoes): callable
+    {
+        return fn ($firstParam) => array_reduce(
+            $funcoes,
+            fn ($currentParam, callable $funcaoAtual) => $funcaoAtual($currentParam),
+            $firstParam
+        );
+    }
+
+    $operacoes = pipe(
+        $nomeDePaisesEmMaiusculo,       // primeiro este
+        $filtraPaisesSemEspacoNoNome,   // depois este
+        // ... mais extensível
+    );
+    $operacoes($dados);
+    ```
